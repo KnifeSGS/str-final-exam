@@ -21,7 +21,7 @@ export class UserListComponent implements OnInit {
   }
 
 
-  // Delete User
+  // 1. Delete User
   user: User = new User();
   userDelete(user: User): void {
     this.userService.remove(user)
@@ -33,5 +33,9 @@ export class UserListComponent implements OnInit {
       $('#cancelButton').trigger('focus')
     })
   }
+
+  // 2. Filter
+  phrase: string = '';
+  searchKey: string = 'name';
 
 }
