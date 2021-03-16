@@ -38,4 +38,11 @@ export class UserListComponent implements OnInit {
   phrase: string = '';
   searchKey: string = 'name';
 
+  // 3. Sorter
+  columnKey: string = 'id';
+
+  onColumnSelect(key: string) {
+    this.columnKey = key;
+  }
+
 }
