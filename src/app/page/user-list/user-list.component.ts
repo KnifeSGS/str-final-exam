@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/service/user.service';
@@ -14,6 +15,7 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +26,8 @@ export class UserListComponent implements OnInit {
   // 1. Delete User
   user: User = new User();
   userDelete(user: User): void {
-    this.userService.remove(user)
+    this.userService.remove(user);
+    this.showWarning(user)
   }
 
   confirmDelete(user: User): void {
@@ -43,6 +46,11 @@ export class UserListComponent implements OnInit {
 
   onColumnSelect(key: string) {
     this.columnKey = key;
+  }
+
+  // Toastr
+  showWarning(user: User) {
+    this.toastr.error(`${user.name} deleted`, '', { timeOut: 3000, easing: 'ease-in', easeTime: 300, tapToDismiss: true });
   }
 
 }

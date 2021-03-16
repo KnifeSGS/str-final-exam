@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from 'src/app/model/user';
@@ -32,7 +33,8 @@ export class UserEditorComponent implements OnInit {
   constructor(
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -45,13 +47,24 @@ export class UserEditorComponent implements OnInit {
     this.updating = true;
     if (user.id === 0) {
       this.userService.create(user);
-      this.router.navigate([''])
+      this.router.navigate(['']);
+      this.showSuccess(user)
     } else {
       this.userService.update(user);
-      this.router.navigate([''])
+      this.router.navigate(['']);
+      this.showInfo(user)
     }
   }
 
   // 5. Validate
   // Template-driven with patterns
+
+  // Toastr
+  showSuccess(user: User) {
+    this.toastr.success(`${user.name} added successfully`, 'Notice', { timeOut: 3000, easing: 'ease-in', easeTime: 300, tapToDismiss: true });
+  }
+
+  showInfo(user: User) {
+    this.toastr.info(`${user.name} saved succesfully`, 'Notice', { timeOut: 3000, easing: 'ease-in', easeTime: 300, tapToDismiss: true });
+  }
 }
