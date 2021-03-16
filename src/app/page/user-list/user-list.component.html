@@ -1,11 +1,16 @@
 <div class="row">
   <div class="col-12 mt-2">
     <h2>User List</h2>
-    <div class="col-12 mx-0 px-0 d-flex flex-row justify-content-start">
+    <div class="col-12 px-0">
       <div class="form-inline w-100">
-        <input [(ngModel)]="phrase" class="form-control mr-sm-2 w-100"
-          type="text" placeholder="Search by name...">
+        <input [(ngModel)]="phrase" class="form-control w-100" type="text"
+          placeholder="Search by name...">
       </div>
+    </div>
+    <div class="col-12 px-0 my-2">
+      <button [routerLink]="['user/'+'0']" class="btn btn-primary btn-block">
+        Create new user
+      </button>
     </div>
     <table class="table table-striped">
       <thead>

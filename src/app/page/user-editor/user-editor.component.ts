@@ -38,21 +38,20 @@ export class UserEditorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // 4. Update
+  // 4. Update 6. Create
   updating: boolean = false;
 
   onUpdate(form: NgForm, user: User): void {
     this.updating = true;
-    this.userService.update(user);
-    this.router.navigate([''])
+    if (user.id === 0) {
+      this.userService.create(user);
+      this.router.navigate([''])
+    } else {
+      this.userService.update(user);
+      this.router.navigate([''])
+    }
   }
 
   // 5. Validate
-  // validateEmail(mail: string) {
-  //   if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
-  //     return (true)
-  //   }
-  //   alert("You have entered an invalid email address!")
-  //   return (false)
-  // }
+  // Template-driven with patterns
 }
