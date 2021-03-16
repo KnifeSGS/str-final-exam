@@ -56,5 +56,10 @@ export class UserService {
    * Update a user in the database.
    * The method is: this.http.patch
    */
+  update(user: User): void {
+    this.http.patch<User>(`${this.endpoint}/${user.id}`, user).subscribe(
+      () => this.getAll()
+    );
+  }
 
 }
