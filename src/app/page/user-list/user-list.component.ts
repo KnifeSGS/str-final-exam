@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/service/user.service';
 
@@ -10,13 +10,28 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class UserListComponent implements OnInit {
 
-  users$: Observable<User[]> = this.userService.getAll();
+  users$: BehaviorSubject<User[]> = this.userService.userList;
 
   constructor(
     private userService: UserService,
   ) { }
 
   ngOnInit(): void {
+    this.userService.getAll()
+  }
+
+
+  // Delete User
+  user: User = new User();
+  userDelete(user: User): void {
+    this.userService.remove(user)
+  }
+
+  confirmDelete(user: User): void {
+    this.user = user;
+    $('#confirmationDialog').on('shown.bs.modal', function () {
+      $('#cancelButton').trigger('focus')
+    })
   }
 
 }
