@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -39,8 +39,20 @@ export class UserEditorComponent implements OnInit {
   }
 
   // 4. Update
+  updating: boolean = false;
+
   onUpdate(form: NgForm, user: User): void {
+    this.updating = true;
     this.userService.update(user);
     this.router.navigate([''])
   }
+
+  // 5. Validate
+  // validateEmail(mail: string) {
+  //   if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
+  //     return (true)
+  //   }
+  //   alert("You have entered an invalid email address!")
+  //   return (false)
+  // }
 }
